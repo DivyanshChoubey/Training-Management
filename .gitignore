@@ -1,0 +1,26 @@
+# Environment
+.env
+.env.example
+
+# Virtual Environment
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Django
+*.log
+db.sqlite3
+migrations/
+
+# Media files (uploaded files)
+media/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
