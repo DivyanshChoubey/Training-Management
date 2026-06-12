@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from service.constants import ResponseMessage
+from service.constants import ResponseMessage, ALLOWED_FILE_EXTENSIONS, MAX_FILE_SIZE_BYTES
 from service.models import Resource, TrainingModule
 from service.serializers import ResourceCreateSerializer
 
@@ -36,10 +36,9 @@ class ResourceCreateView(APIView):
                     },
                     status=status.HTTP_404_NOT_FOUND
                 )
-        
-        allowed_extensions = ['.pdf', '.docx']
+
         file_ext =  os.path.splitext(file.name)[1].lower()
-        if file_ext not in allowed_extensions:
+        if file_ext not in ALLOWED_FILE_EXTENSIONS:
             return Response(
                 {
                     "success": False,
@@ -48,7 +47,7 @@ class ResourceCreateView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        if file.size > 2 * 1024 * 1024:
+        if file.size > MAX_FILE_SIZE_BYTES:
             return Response(
                 {
                     "success": False,
